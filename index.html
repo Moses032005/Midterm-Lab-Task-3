@@ -6,43 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Midterm Lab Task 3</title>
     <style>
+        /* Binary Rain Background Styles */
         body {
+            background-color: #000 !important;
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #222;
-            color: #fff;
+            overflow-x: hidden;
+            font-family: 'Arial', sans-serif; /* Maintain original font */
         }
+        
+        #binary-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(1.2ch, 1fr));
+            grid-auto-rows: 1.2em;
+            overflow: hidden;
+            z-index: -1;
+            background-color: #000;
+            font-family: 'Courier New', monospace; /* Only for binary digits */
+        }
+        
+        .binary-digit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            opacity: 0.8;
+            animation: fadeIn 0.5s forwards;
+            line-height: 1;
+            color: #0f0; /* Classic Matrix green */
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.8; }
+        }
+
+        /* Content Styles - Font family remains Arial throughout */
         .container {
             max-width: 900px;
             margin: 30px auto;
             padding: 20px;
-            background-color: rgba(50, 50, 50, 0.85);
+            background-color: rgba(20, 20, 20, 0.9);
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            position: relative;
+            border: 1px solid #333;
+            font-family: 'Arial', sans-serif; /* Explicitly set */
         }
         header {
             text-align: center;
             padding: 20px 0;
             border-bottom: 2px solid #ffeb3b;
+            font-family: 'Arial', sans-serif;
         }
         h1, h2 {
             color: #ffeb3b;
+            font-family: 'Arial', sans-serif;
         }
         .steps {
-            background: rgba(60, 60, 60, 0.7);
+            background: rgba(40, 40, 40, 0.9);
             padding: 15px;
             border-radius: 5px;
             border-left: 4px solid #ffeb3b;
+            font-family: 'Arial', sans-serif;
         }
         .steps ul {
             list-style-type: none;
             padding-left: 0;
+            font-family: 'Arial', sans-serif;
         }
         .steps li {
             margin-bottom: 10px;
             padding-left: 20px;
             position: relative;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
         }
         .steps li::before {
             content: "✔";
@@ -51,16 +94,19 @@
             position: absolute;
             left: 0;
             top: 2px;
+            font-family: 'Arial', sans-serif;
         }
         .images {
             text-align: center;
             margin-top: 20px;
+            font-family: 'Arial', sans-serif;
         }
         .images img {
             max-width: 100%;
             border-radius: 5px;
             margin-top: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            border: 1px solid #333;
         }
         .image-grid {
             display: grid;
@@ -71,6 +117,9 @@
         .image-grid img {
             width: 100%;
             height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            border: 1px solid #333;
         }
         footer {
             text-align: center;
@@ -78,6 +127,7 @@
             border-top: 2px solid #444;
             margin-top: 30px;
             color: #aaa;
+            font-family: 'Arial', sans-serif;
         }
         .portfolio-link {
             display: inline-block;
@@ -89,14 +139,23 @@
             border-radius: 5px;
             font-weight: bold;
             transition: background-color 0.3s;
+            font-family: 'Arial', sans-serif;
         }
         .portfolio-link:hover {
             background-color: #ffc107;
+        }
+        p {
+            color: #ddd;
+            font-family: 'Arial', sans-serif;
         }
     </style>
 </head>
 
 <body>
+    <!-- Binary Rain Background -->
+    <div id="binary-rain"></div>
+
+    <!-- Content Container -->
     <div class="container">
         <header>
             <h1>Midterm Lab Task 3</h1>
@@ -170,6 +229,103 @@
             <a href="https://moses032005.github.io/EDM_Moses-David/" class="portfolio-link">Back to Portfolio</a>
         </footer>
     </div>
+
+    <script>
+        // Binary Rain Configuration
+        const config = {
+            fontSize: 20, // Base font size in pixels
+            updateInterval: 50, // ms between updates
+            changeProbability: 0.3 // chance a digit changes each frame
+        };
+        
+        const container = document.getElementById('binary-rain');
+        let digits = [];
+        let columns = 0;
+        let rows = 0;
+        
+        // Calculate the number of columns and rows needed
+        function calculateGrid() {
+            // Temporarily create a test element to measure character size
+            const testChar = document.createElement('div');
+            testChar.textContent = '0';
+            testChar.style.position = 'absolute';
+            testChar.style.visibility = 'hidden';
+            testChar.style.fontSize = `${config.fontSize}px`;
+            testChar.style.fontFamily = 'Courier New, monospace';
+            document.body.appendChild(testChar);
+            
+            // Measure character width and height
+            const charWidth = testChar.offsetWidth;
+            const charHeight = testChar.offsetHeight;
+            document.body.removeChild(testChar);
+            
+            // Calculate how many characters fit in the viewport
+            columns = Math.ceil(window.innerWidth / charWidth);
+            rows = Math.ceil(window.innerHeight / charHeight);
+            
+            // Adjust font size to perfectly fill the screen
+            const perfectFontSizeWidth = window.innerWidth / columns;
+            const perfectFontSizeHeight = window.innerHeight / rows;
+            const perfectFontSize = Math.min(perfectFontSizeWidth, perfectFontSizeHeight);
+            
+            // Apply the calculated font size
+            container.style.fontSize = `${perfectFontSize}px`;
+            container.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+            container.style.gridAutoRows = `1fr`;
+        }
+        
+        // Initialize the binary background
+        function init() {
+            calculateGrid();
+            
+            // Create digits
+            for (let i = 0; i < columns * rows; i++) {
+                const digit = document.createElement('div');
+                digit.className = 'binary-digit';
+                digit.textContent = Math.random() > 0.5 ? '1' : '0';
+                container.appendChild(digit);
+                digits.push(digit);
+            }
+            
+            // Start animation
+            setInterval(animate, config.updateInterval);
+        }
+        
+        // Animation loop
+        function animate() {
+            digits.forEach(digit => {
+                if (Math.random() < config.changeProbability) {
+                    digit.textContent = Math.random() > 0.5 ? '1' : '0';
+                    digit.style.opacity = 0;
+                    digit.style.animation = 'none';
+                    void digit.offsetWidth; // Trigger reflow
+                    digit.style.animation = 'fadeIn 0.5s forwards';
+                }
+            });
+        }
+        
+        // Handle window resize
+        function handleResize() {
+            calculateGrid();
+            
+            // Clear existing digits
+            container.innerHTML = '';
+            digits = [];
+            
+            // Create new digits
+            for (let i = 0; i < columns * rows; i++) {
+                const digit = document.createElement('div');
+                digit.className = 'binary-digit';
+                digit.textContent = Math.random() > 0.5 ? '1' : '0';
+                container.appendChild(digit);
+                digits.push(digit);
+            }
+        }
+        
+        // Start everything
+        window.addEventListener('load', init);
+        window.addEventListener('resize', handleResize);
+    </script>
 </body>
 
 </html>
