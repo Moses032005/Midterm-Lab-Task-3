@@ -1,1 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midterm Lab Task 3</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #222;
+            color: #fff;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: rgba(50, 50, 50, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #ffeb3b;
+        }
+        h1, h2 {
+            color: #ffeb3b;
+        }
+        .steps {
+            background: rgba(60, 60, 60, 0.7);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffeb3b;
+        }
+        .steps ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .steps li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .steps li::before {
+            content: "✔";
+            color: #ffeb3b;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+        .images {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .images img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .image-grid img {
+            width: 100%;
+            height: auto;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #444;
+            margin-top: 30px;
+            color: #aaa;
+        }
+        .portfolio-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #ffeb3b;
+            color: #222;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .portfolio-link:hover {
+            background-color: #ffc107;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Midterm Lab Task 3</h1>
+            <p>Creating PIVOT TABLE and DASHBOARD</p>
+        </header>
+
+        <section class="steps">
+            <h2>Step 1 - Salary Analysis</h2>
+            <ul>
+                <li>Using the Worksheet for Uncleaned DS Jobs and the transform tables</li>
+                <li>Created analysis of Salary by role, state, and size</li>
+            </ul>
+            <div class="images">
+                <img src="https://github.com/Moses032005/EDM_Moses-David/raw/main/Midterm%20Lab%20Task%203/Images/1.png" alt="Salary Analysis">
+            </div>
+        </section>
+
+        <section class="steps">
+            <h2>Step 2 - Dashboard Design</h2>
+            <ul>
+                <li>Designed dashboard to showcase key metrics:</li>
+                <li>The state having the highest number of data science jobs</li>
+                <li>Job Role with the Highest Average Salary</li>
+                <li>Which company size pays the highest</li>
+                <li>Which sector employs the lowest and most data science-related jobs</li>
+                <li>Which sector has the minimum and maximum average salary</li>
+                <li>Built additional query to create PIVOT Table for sector analysis</li>
+            </ul>
+            <div class="images">
+                <img src="https://github.com/Moses032005/EDM_Moses-David/raw/main/Midterm%20Lab%20Task%203/Images/2.png" alt="Dashboard Requirements">
+            </div>
+        </section>
+
+        <section class="steps">
+            <h2>Step 3 - Pivot Tables & Charts</h2>
+            <ul>
+                <li>Created necessary Pivot Table and relevant charts</li>
+                <li>Ensured all required reports are properly visualized</li>
+            </ul>
+            <div class="images">
+                <img src="https://github.com/Moses032005/EDM_Moses-David/raw/main/Midterm%20Lab%20Task%203/Images/3.png" alt="Pivot Tables and Charts">
+            </div>
+        </section>
+
+        <section class="steps">
+            <h2>Step 4-5 - Interactive Elements</h2>
+            <ul>
+                <li>Inserted slicers for the role type, size, and state</li>
+                <li>Added MAP visualization (where Excel version supported)</li>
+            </ul>
+            <div class="image-grid">
+                <img src="https://github.com/Moses032005/EDM_Moses-David/raw/main/Midterm%20Lab%20Task%203/Images/4.png" alt="Map Visualization">
+                <img src="https://github.com/Moses032005/EDM_Moses-David/raw/main/Midterm%20Lab%20Task%203/Images/6.png" alt="Slicers">
+            </div>
+        </section>
+
+        <section class="steps">
+            <h2>Step 6-8 - Dashboard Completion</h2>
+            <ul>
+                <li>Customized dashboard's style and color options</li>
+                <li>Completed all essential VISUALS/REPORTS</li>
+                <li>Ensured Slicers make Dashboard more engaging</li>
+            </ul>
+            <div class="images">
+                <img src="https://github.com/Moses032005/EDM_Moses-David/raw/main/Midterm%20Lab%20Task%203/Images/5.png" alt="Completed Dashboard">
+            </div>
+        </section>
+
+        <footer>
+            <p>Midterm Lab Task 3 | BSIS Student</p>
+            <a href="https://moses032005.github.io/EDM_Moses-David/" class="portfolio-link">Back to Portfolio</a>
+        </footer>
+    </div>
+</body>
+
+</html>
